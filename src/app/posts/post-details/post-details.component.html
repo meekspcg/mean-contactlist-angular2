@@ -1,0 +1,20 @@
+<div *ngIf="post" class="row">
+  <div class="col-md-12">
+    <h2 *ngIf="post._id">post Details</h2>
+    <h2 *ngIf="!post._id">New post</h2>
+  </div>
+</div>
+<div *ngIf="post" class="row">
+  <form class="col-md-12">
+    <div class="form-group">
+      <label for="post-name">Title</label>
+      <input class="form-control" name="post-name" [(ngModel)]="post.title" placeholder="Name"/>
+    </div>
+    <div class="form-group">
+      <input class="form-control" name="post-email" [(ngModel)]="post.content" placeholder="support@mlab.com"/>
+    </div>
+    <button class="btn btn-primary" *ngIf="!post._id" (click)="createPost(post)">Create</button>
+    <button class="btn btn-info" *ngIf="post._id" (click)="updatePost(post)">Update</button>
+    <button class="btn btn-danger" *ngIf="post._id" (click)="deletePost(post._id)">Delete</button>
+  </form>
+</div>
