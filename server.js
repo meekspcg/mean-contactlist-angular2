@@ -3,13 +3,17 @@ var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 var postS_COLLECTION = "posts";
-const fs = require('fs');
 
-var rawdata = fs.readFileSync('posts.json');  
-var rawdata = JSON.parse(rawdata);  
+
+ 
 
 var app = express();
 app.use(bodyParser.json());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // Create link to Angular build directory
 var distDir = __dirname + "/dist/";
@@ -69,28 +73,40 @@ app.get("posts.json", function(req, res) {
 });
 
 
-// /*  "/api/posts"
-//  *    GET: finds all posts
-//  *    POST: creates a new post
-//  */
+/*  "/api/contacts/:id"
+ *    GET: find contact by id
+ *    PUT: update contact by id
+ *    DELETE: deletes contact by id
+ */
 
-// app.get("/api/posts/", function(req, res) {
-//   console.log(rawdata);
-//   postS_COLLECTION = rawdata;
-//   db.collection(postS_COLLECTION).find({}).toArray(function(err, docs) {
-//     if (err) {
-//       handleError(res, err.message, "Failed to get posts.");
-//     } else {
-//       console.log(docs);
-//       res.status(200).json(docs);
-//     }
-//   });
-// });
-  
-app.delete("posts.json", function(req, res) {
-  db.collection(postS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
+app.get("/api/contacts/:id", function(req, res) {
+  db.collection(CONTACTS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
     if (err) {
-      handleError(res, err.message, "Failed to delete post");
+      handleError(res, err.message, "Failed to get contact");
+    } else {
+      res.status(200).json(doc);
+    }
+  });
+});
+
+app.put("/api/contacts/:id", function(req, res) {
+  var updateDoc = req.body;
+  delete updateDoc._id;
+
+  db.collection(CONTACTS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to update contact");
+    } else {
+      updateDoc._id = req.params.id;
+      res.status(200).json(updateDoc);
+    }
+  });
+});
+
+app.delete("/api/contacts/:id", function(req, res) {
+  db.collection(CONTACTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
+    if (err) {
+      handleError(res, err.message, "Failed to delete contact");
     } else {
       res.status(200).json(req.params.id);
     }

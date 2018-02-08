@@ -5,13 +5,13 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class PostService {
-    private postsUrl = '/api/posts/';
+    private postsUrl = '/api/posts';
 
     constructor (private http: Http) {}
 
     // get("/api/posts")
     getPosts(): Promise<Post[]> {
-      return this.http.get("http://localhost:8080/posts.json")
+      return this.http.get("https://localhost:8080/posts.json")
                  .toPromise()
                  .then(response => response.json() as Post[])
                  .catch(this.handleError);
