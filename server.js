@@ -23,7 +23,7 @@ var mongoAccount = "heroku_0l1cv6g8";
 app.use(express.static(distDir));
 app.use(express.static(dataDir));
  
-// var MONGODB_URI = 'mongodb://heroku_0l1cv6g8:heroku_0l1cv6g8@ds229458.mlab.com:29458/heroku_0l1cv6g8';
+var MONGODB_URI = 'mongodb://heroku_0l1cv6g8:heroku_0l1cv6g8@ds229458.mlab.com:29458/heroku_0l1cv6g8';
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 var db;
 
