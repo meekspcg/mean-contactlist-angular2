@@ -2,7 +2,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
-var postS_COLLECTION = "posts";
+var POSTS_COLLECTION = "posts";
 
 var app = express();
 app.use(bodyParser.json());
@@ -23,7 +23,7 @@ var mongoAccount = "heroku_0l1cv6g8";
 app.use(express.static(distDir));
 app.use(express.static(dataDir));
  
-var MONGODB_URI = 'mongodb://heroku_0l1cv6g8:heroku_0l1cv6g8@ds229458.mlab.com:29458/heroku_0l1cv6g8';
+// var MONGODB_URI = 'mongodb://heroku_0l1cv6g8:heroku_0l1cv6g8@ds229458.mlab.com:29458/heroku_0l1cv6g8';
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 var db;
 
@@ -59,8 +59,8 @@ function handleError(res, reason, message, code) {
  */
 
 app.get("posts.json", function(req, res) {
-  console.log(postS_COLLECTION);
-  db.collection(postS_COLLECTION).find({}).toArray(function(err, docs) {
+  console.log(POSTS_COLLECTION);
+  db.collection(POSTS_COLLECTION).find({}).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get posts.");
     } else {
@@ -76,8 +76,8 @@ app.get("posts.json", function(req, res) {
  *    DELETE: deletes contact by id
  */
 
-app.get("/api/contacts/:id", function(req, res) {
-  db.collection(CONTACTS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
+app.get("/api/posts/:id", function(req, res) {
+  db.collection(POSTS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Failed to get contact");
     } else {
@@ -86,11 +86,11 @@ app.get("/api/contacts/:id", function(req, res) {
   });
 });
 
-app.put("/api/contacts/:id", function(req, res) {
+app.put("/api/posts/:id", function(req, res) {
   var updateDoc = req.body;
   delete updateDoc._id;
 
-  db.collection(CONTACTS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
+  db.collection(POSTS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Failed to update contact");
     } else {
@@ -100,8 +100,8 @@ app.put("/api/contacts/:id", function(req, res) {
   });
 });
 
-app.delete("/api/contacts/:id", function(req, res) {
-  db.collection(CONTACTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
+app.delete("/api/posts/:id", function(req, res) {
+  db.collection(POSTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
     if (err) {
       handleError(res, err.message, "Failed to delete contact");
     } else {
