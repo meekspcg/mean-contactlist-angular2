@@ -4,11 +4,9 @@ var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 var postS_COLLECTION = "posts";
 
-
- 
-
 var app = express();
 app.use(bodyParser.json());
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -18,7 +16,6 @@ app.use(function(req, res, next) {
 // Create link to Angular build directory
 var distDir = __dirname + "/dist/";
 var dataDir = __dirname + "/data/";
- 
 
 var mongoUser = "heroku_0l1cv6g8";
 var mongoAccount = "heroku_0l1cv6g8";

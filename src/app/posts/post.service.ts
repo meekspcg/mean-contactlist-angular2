@@ -11,12 +11,12 @@ export class PostService {
 
     // get("/api/posts")
     getPosts(): Promise<Post[]> {
-      return this.http.get("https://localhost:8080/posts.json")
+      return this.http.get("https://testcontactsappcc.herokuapp.com/posts.json")
                  .toPromise()
                  .then(response => response.json() as Post[])
                  .catch(this.handleError);
     }
-
+    
     // post("/api/posts")
     createPost(newPost: Post): Promise<Post> {
       return this.http.post(this.postsUrl, newPost)
