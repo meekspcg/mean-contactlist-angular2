@@ -11,7 +11,7 @@ export class PostService {
 
     // get("/api/posts")
     getPosts(): Promise<Post[]> {
-      return this.http.get("posts.json")
+      return this.http.get("http://localhost:8080/posts.json")
                  .toPromise()
                  .then(response => response.json() as Post[])
                  .catch(this.handleError);

@@ -14,7 +14,6 @@
       <input class="form-control" name="post-email" [(ngModel)]="post.content" />
     </div>
     <button class="btn btn-primary" *ngIf="!post._id" (click)="createPost(post)">Create</button>
-    <button class="btn btn-info" *ngIf="post._id" (click)="updatePost(post)">Update</button>
     <button class="btn btn-danger" *ngIf="post._id" (click)="deletePost(post._id)">Delete</button>
   </form>
 </div>
