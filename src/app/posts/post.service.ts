@@ -1,29 +1,29 @@
 import { Injectable } from "@angular/core";
-import { post } from "./post";
+import { Post } from "./post";
 import { Http, Response } from "@angular/http";
 import "rxjs/add/operator/toPromise";
 
 @Injectable()
-export class postService {
+export class PostService {
   private postsUrl = "/api/posts";
 
   constructor(private http: Http) {}
 
   // get("/api/posts")
-  getposts(): Promise<post[]> {
+  getposts(): Promise<Post[]> {
     return this.http
-      .get('https://testcontactsappcc.herokuapp.com/posts.json')
+      .get("https://testcontactsappcc.herokuapp.com/posts.json")
       .toPromise()
-      .then(response => response.json() as post[])
+      .then(response => response.json() as Post[])
       .catch(this.handleError);
   }
 
   // post("/api/posts")
-  createpost(newpost: post): Promise<post> {
+  createpost(newpost: Post): Promise<Post> {
     return this.http
       .post(this.postsUrl, newpost)
       .toPromise()
-      .then(response => response.json() as post)
+      .then(response => response.json() as Post)
       .catch(this.handleError);
   }
 
@@ -39,12 +39,12 @@ export class postService {
   }
 
   // put("/api/posts/:id")
-  updatepost(putpost: post): Promise<post> {
+  updatepost(putpost: Post): Promise<Post> {
     var putUrl = this.postsUrl + "/" + putpost._id;
     return this.http
       .put(putUrl, putpost)
       .toPromise()
-      .then(response => response.json() as post)
+      .then(response => response.json() as Post)
       .catch(this.handleError);
   }
 
