@@ -68,7 +68,7 @@ function handleError(res, reason, message, code) {
  *    POST: creates a new post
  */
 
-app.get("http://localhost:8080/posts.json", function(req, res) {
+app.get("https://testcontactsappcc.herokuapp.com/posts.json", function(req, res) {
   console.log(POSTS_COLLECTION);
   db.collection(POSTS_COLLECTION).find({}).toArray(function(err, docs) {
     if (err) {
