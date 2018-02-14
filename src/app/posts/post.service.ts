@@ -10,7 +10,7 @@ export class PostService {
   constructor(private http: Http) {}
 
   // get("/api/posts")
-  getposts(): Promise<Post[]> {
+  getPosts(): Promise<Post[]> {
     return this.http
       .get("https://testcontactsappcc.herokuapp.com/posts.json")
       .toPromise()
@@ -19,7 +19,7 @@ export class PostService {
   }
 
   // post("/api/posts")
-  createpost(newpost: Post): Promise<Post> {
+  createPost(newpost: Post): Promise<Post> {
     return this.http
       .post(this.postsUrl, newpost)
       .toPromise()
@@ -30,7 +30,7 @@ export class PostService {
   // get("/api/posts/:id") endpoint not used by Angular app
 
   // delete("/api/posts/:id")
-  deletepost(delpostId: String): Promise<String> {
+  deletePost(delpostId: String): Promise<String> {
     return this.http
       .delete(this.postsUrl + "/" + delpostId)
       .toPromise()
@@ -39,7 +39,7 @@ export class PostService {
   }
 
   // put("/api/posts/:id")
-  updatepost(putpost: Post): Promise<Post> {
+  updatePost(putpost: Post): Promise<Post> {
     var putUrl = this.postsUrl + "/" + putpost._id;
     return this.http
       .put(putUrl, putpost)
